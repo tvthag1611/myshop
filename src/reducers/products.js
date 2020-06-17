@@ -39,16 +39,18 @@ const initialState = {
             price: 13990000,
         }
   ],
-  cart: [],
+  carts: [],
 };
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_CART:
-      return { ...state, cart: [...state.cart, action.cart]};
+      return { ...state, carts: [...state.carts, action.cart]};
     case types.DELETE_PRODUCT:
-      let list = state.cart.filter(item => item.id !== action.id);
-      return { ...state, cart: list};
+      let list = state.carts.filter(item => item.cart.id !== action.id);
+      return { ...state, carts: list};
+    case types.SET_CART:
+      return { ...state, carts: action.carts};
     default:
       return state;
   }

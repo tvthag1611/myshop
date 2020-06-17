@@ -12,7 +12,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
     return {
         addCart: (product) => {
-            dispatch(actions.addCart(product));
+            const cartProduct = {
+                amount: 1,
+                isChoose: true,
+                cart: product
+            }
+            dispatch(actions.addCart(cartProduct));
         },
     };
 }

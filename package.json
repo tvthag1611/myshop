@@ -2,7 +2,7 @@
   "name": "myshop",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tvthag1611.github.io/myshop/",
+  "homepage": "https://tvthag1611.github.io/myshop",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

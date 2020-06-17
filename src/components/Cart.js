@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import './../styles/Cart.css'
 import {connect} from 'react-redux'
 import * as actions from './../actions/index'
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.products.cart,
+        cartProduct: state.products.carts,
     };
 }
 
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         deleteProduct: (id) => {
             dispatch(actions.deleteProduct(id));
+        },
+        setCartProduct: (carts) => {
+            dispatch(actions.setCartProduct(carts));
         }
     }
 }
@@ -21,40 +24,19 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )
-(function Cart({cart, deleteProduct}) {
-    const [cartProduct, setCartProduct] = useState([]);
-
-    useEffect(() => {
-        cart.forEach(product => {
-            if (cartProduct.find(item => item.cart === product) === undefined) {
-                cartProduct.push({
-                    mount: 1,
-                    isChoose: true,
-                    cart: product
-                })
-            }
-        })
-        cartProduct.forEach((item, index) => {
-            if (cart.find(itemCart => itemCart === item.cart) === undefined) {
-                cartProduct.splice(index,1);
-            }
-        })
-        setCartProduct([...cartProduct]);
-    }, [cart]);
+(function Cart({cartProduct, deleteProduct, setCartProduct}) {
 
     let sumPrice = 0;
     cartProduct.forEach(item => {
         if (item.isChoose) {
-            sumPrice += item.mount * item.cart.price;
+            sumPrice += item.amount * item.cart.price;
         }
     });
-
 
     return (
         <div className="item container">
             <h1>Giỏ hàng của bạn:</h1>
-            { cartProduct.length > 0 ?
-                cartProduct.map(item => 
+            {   cartProduct.map(item => 
                     <div className="item__product" key = {item.cart.id}>
                         <input type="checkbox" className="choose__item" checked={item.isChoose}
                         onChange={(event) => {
@@ -81,20 +63,20 @@ export default connect(
                                 onClick={() => {
                                     setCartProduct(cartProduct.map(product => {
                                         if (product.cart.id === item.cart.id) {
-                                            if (product.mount > 0)
-                                                product.mount -= 1;
+                                            if (product.amount > 0)
+                                                product.amount -= 1;
                                             return product;
                                         }
                                         else return product;
                                     }))
                                 }}
                             >-</button>
-                            <div className="amount__item">{item.mount}</div>
+                            <div className="amount__item">{item.amount}</div>
                             <button className="btn btn-secondary add__item"
                                 onClick={() => {
                                     setCartProduct(cartProduct.map(product => {
                                         if (product.cart.id === item.cart.id) {
-                                            product.mount += 1;
+                                            product.amount += 1;
                                             return product;
                                         }
                                         else return product;
@@ -108,7 +90,7 @@ export default connect(
                             }}
                         ></i>
                     </div>    
-                ) : ''
+                )
             }
             {cartProduct.length === 0 ? 'Giỏ hàng của bạn đang trống' : ''}
             <br />

@@ -14,3 +14,10 @@ export const deleteProduct = (id) => {
   };
 };
 
+export const setCartProduct = (carts) => {
+  return {
+    type: types.SET_CART,
+    carts,
+  };
+};
+

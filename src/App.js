@@ -10,8 +10,8 @@ function App() {
     <Router>
       <Header />
       <div className="row content-app">
-        <Route path='/cart' component={Cart}/> 
-        <Route path='/' exact component={Home} />
+        <Route path='/myshop/cart' component={Cart}/> 
+        <Route path='/myshop/' exact component={Home} />
       </div>
     </Router>
   );
