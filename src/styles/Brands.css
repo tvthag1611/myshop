@@ -1,0 +1,12 @@
+.brand__phone {
+    font-size: 30px;
+}
+
+.brand__phone:hover {
+    cursor: pointer;
+    color: rgb(98, 98, 255);
+}
+
+.brand__none {
+    display: none;
+}
